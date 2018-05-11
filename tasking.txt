@@ -1,0 +1,17 @@
+#1 函数bestCharge
+输入：
+	selectedItems : String
+输出：
+	finalOrder : String
+
+#2 函数loadAllItems
+输入：
+	无
+输出：
+	menInformantion: String
+
+#3 函数
+输入：
+	无
+输出：
+ 	loadPromotions：String
