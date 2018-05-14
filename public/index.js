@@ -1,12 +1,70 @@
-// 请把与index.html页面相关的javascript代码写在这里
-// 同时删除该注释
 function calculatePrice() {
-    // 想办法调用`bestCharge`并且把返回的字符串
-    // 显示在html页面的`message`中
-
+    var theFormatOrder = formatInput();
+    var bill = bestCharge(theFormatOrder);
+    document.getElementById('message').innerHTML = bill;
 }
 
-function clear() {
-    // 清除用户的选择，以及页面显示的信息
-    // 清除之后，用户可以继续正常使用各项功能
+function changeSelected() {
+    var menusArray = [];
+    menusArray.push({
+        id: 'ITEM0001',
+        number: document.getElementById('ITEM0001').value,
+        name: '黄焖鸡'
+    })
+    menusArray.push({
+        id: 'ITEM0013',
+        number: document.getElementById('ITEM0013').value,
+        name: '肉夹馍'
+    })
+    menusArray.push({
+        id: 'ITEM0022',
+        number: document.getElementById('ITEM0022').value,
+        name: '凉皮'
+    })
+    menusArray.push({
+        id: 'ITEM0030',
+        number: document.getElementById('ITEM0030').value,
+        name: '冰锋'
+    })
+    var orderOption = '所点的菜有：';
+    for (let i = 0; i < menusArray.length; i++) {
+        if (menusArray[i].number > 0)
+            orderOption += '\n' + menusArray[i].name + ' x ' + menusArray[i].number + '\n';
+    }
+    document.getElementById('selectedmenus').innerHTML = orderOption;
+    return menusArray;
+}
+
+function formatInput() {
+    var menusArray = changeSelected();
+    var finalOrder = [];
+    for (let i = 0, j = 0; i < menusArray.length; i++) {
+        if (menusArray[i].number > 0) {
+            var partOrder = '';
+            partOrder += menusArray[i].id + ' x ' + menusArray[i].number;
+            finalOrder[j] = partOrder;
+            j++;
+        }
+    }
+    return finalOrder;
+}
+window.onload = function() {
+    var items = loadAllItems();
+    var itemsHtml = '';
+    for (let i = 0; i < items.length; i++) {
+        itemsHtml += '<div class="menuStyle"><span value=' + items[i].id + '>' + items[i].name + " " +
+            items[i].price + '元:&nbsp;&nbsp</span>' + '<input class="input"id=' + items[i].id + ' type="text">' + "&nbsp;&nbsp;&nbsp;&nbsp;" + '</div>';
+    }
+    document.getElementById('menus').innerHTML = itemsHtml;
+    //加载优惠方式
+    var promotions = loadPromotions();
+    var promotionsHtml = '';
+    promotionsHtml = '优惠方式有:\n'
+    promotionsHtml += '<p>方式一：' + promotions[0].type + '</p>';
+    promotionsHtml += '<p>方式二：' + promotions[1].type + " (" + items[0].name + "，" + items[2].name + ')</p>';
+    document.getElementById('promotions').innerHTML = promotionsHtml
+}
+
+function enclear() {
+    location.reload();
 }

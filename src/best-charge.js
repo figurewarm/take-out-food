@@ -42,9 +42,14 @@ function bestCharge(selectedItems) {
         finalOrder += "\n-----------------------------------\n使用优惠:\n" + discountStytle[0].type + "，省" + discount2 + "元";
         finalOrder += "\n-----------------------------------\n总计：" +
             (priceWithoutDiscount - discount2) + "元\n===================================";
-    } else if (discount1 == discount2) {
-        finalOrder += "\n-----------------------------------\n总计：" +
-            (priceWithoutDiscount - discount2) + "元\n===================================";
-    }
+    } else if (discount1 == discount2)
+        if (discount2 != 0) {
+            finalOrder += "\n-----------------------------------\n两种优惠相等：\n" + "省" + discount2 + "元";
+            finalOrder += "\n-----------------------------------\n总计：" +
+                (priceWithoutDiscount - discount2) + "元\n===================================";
+        } else {
+            finalOrder += "\n-----------------------------------\n总计：" +
+                (priceWithoutDiscount - discount2) + "元\n===================================";
+        }
     return finalOrder;
 }
